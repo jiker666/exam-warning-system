@@ -78,8 +78,8 @@
 | 测试目标 | 转录服务独立于业务；无 Key 时进入 Mock 且**明确标记** |
 | 测试步骤 | ① 无 Key 环境提交录像 → 轮询 analysis_status ② 检查 warning.is_mock 与 analysis_note |
 | 预期结果 | ① pending → processing → completed ② is_mock=True，note 含 "Mock Result" 字样 |
-| 实际结果 | ① `[1] processing → [2] completed`（curl 演练）② pytest 断言 is_mock_analysis 为 True 通过 |
-| 是否通过 | **PASS（Mock 模式）**。⚠ 未验证项：**真实 AssemblyAI API 调用**（需配置 API Key 后验证，代码路径已实现，配置方法见 README「AssemblyAI 配置」） |
+| 实际结果 | ① 无 Key：`[1] processing → [2] completed`（curl 演练），pytest 断言 is_mock_analysis 为 True 通过 ② **有 Key（真实）**：16 秒中文 WebM 提交 → 9 秒完成分析，`analysis_note="AssemblyAI 真实转录（id=def11af8-…, language=zh）"`，`warning.is_mock=false`，transcript 为 API 真实返回（"…第二题答案是什么？这道题选什么？…告诉我答案…"），命中 3 个关键词共 4 次，评分 80/高风险 |
+| 是否通过 | **PASS（Mock 模式 + 真实 API 双验证）**。真实联调详情见 `docs/assemblyai-real-test.md` |
 
 ## 8. 风险评分
 
@@ -133,6 +133,6 @@
 
 ## 13. 未验证 / 已知限制（如实说明）
 
-1. **真实 AssemblyAI 转录未验证**：本机未配置 API Key。真实模式代码路径（上传音频 → 创建任务 → 轮询）已实现，配置 `.env` 中 `ASSEMBLYAI_API_KEY` 后即切换；若 Key 无效/网络失败，记录会标记 `failed` 并可在预警详情页重新触发分析。
+1. ~~真实 AssemblyAI 转录未验证~~ **已于 2026-09-21 验证通过**（见 `docs/assemblyai-real-test.md`）：Key 鉴权探测 400/401 判定有效；16 秒中文语音真实转录 7.3 秒完成，`source=assemblyai`、`is_mock=false`；完整链路（真实 WebM 提交→ffmpeg→转录→评分 80/高风险→落库）9 秒完成。剩余限制：仅测试了一种音色/清晰度较高的语音，嘈杂环境、口音、多人说话场景未覆盖。
 2. 屏幕录制的真机表现依赖浏览器（Chrome/Edge 支持 getDisplayMedia；需 localhost 或 HTTPS 环境）。
 3. 风险模型为关键词规则版（中期目标），误报/漏报存在，仅作复核参考。

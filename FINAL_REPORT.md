@@ -38,7 +38,9 @@ cd backend && .venv/bin/python seed.py   # 建表(自动) + 演示数据(幂等)
 
 ## 5. AssemblyAI 配置方法
 
-`.env` 中设置 `ASSEMBLYAI_API_KEY=<你的Key>`（https://www.assemblyai.com/ 免费额度），`DEMO_MODE=false`，重启后端即切换真实转录，无需改代码。当前环境未配置 Key，运行于 Mock 模式（三处明确标记）。
+`.env` 中设置 `ASSEMBLYAI_API_KEY=<你的Key>`（https://www.assemblyai.com/ 免费额度），`DEMO_MODE=false`，重启后端即切换真实转录，无需改代码。
+
+> **✅ 真实 API 已验证（2026-09-21）**：16 秒中文语音 7.3 秒完成真实转录（识别准确）；完整业务链路（学生提交含真实语音的 WebM → ffmpeg 提音轨 → 真实转录 → 命中"答案是什么/告诉我答案/选什么"等关键词 → 风险分 80/高风险 → 预警落库 `is_mock=0`）端到端验证通过。证据：`docs/assemblyai-real-test.md`、`docs/test-report.md` 第 7 节、真实截图 `08/09/10/12/13/14`。
 
 ## 6. 已实现功能（全部运行验证）
 

@@ -34,7 +34,7 @@
 - ✅ 成绩管理（教师手工录入 / 修改）
 - ✅ 安全机制（密码哈希、IDOR 防护、上传校验、Honeypot 蜜罐 + 安全事件看板）
 
-说明（如实）：当前环境未配置真实 AssemblyAI API Key，语音转录演示运行于 **Demo Mock 模式**（系统在数据库、接口、界面三处明确标记 "Mock Result"，不冒充真实结果）；真实 API 调用代码路径已实现，配置 Key 即可切换。
+说明（如实）：**真实 AssemblyAI API 已于 2026-09-21 联调验证通过**——16 秒中文测试语音经上传→创建转录任务→轮询→返回中文 transcript（`source=assemblyai`、`is_mock=false`），完整业务链路（WebM 提交→ffmpeg 提取→真实转录→关键词命中→评分 80/高风险→预警落库）端到端跑通，详见 `docs/assemblyai-real-test.md` 与 `docs/test-report.md`。系统仍保留 Mock 模式作为现场演示兜底（未配置 Key 或 `DEMO_MODE=true` 时自动启用，且三处明确标记，不冒充真实结果）。
 
 # 三、阶段性成果（可直接复制到中期检查表）
 
