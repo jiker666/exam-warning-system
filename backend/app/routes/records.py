@@ -50,6 +50,22 @@ def start_exam():
     return ok(record.to_dict())
 
 
+@records_bp.get("")
+@jwt_required()
+@role_required("teacher")
+def list_records():
+    """教师查看自己创建的所有考试的学生记录（可按考试筛选）。"""
+    user = current_user()
+    query = ExamRecord.query.join(Exam, ExamRecord.exam_id == Exam.id).filter(
+        Exam.creator_id == user.id
+    )
+    exam_id = request.args.get("exam_id", type=int)
+    if exam_id:
+        query = query.filter(ExamRecord.exam_id == exam_id)
+    records = query.order_by(ExamRecord.id.desc()).all()
+    return ok([r.to_dict() for r in records])
+
+
 @records_bp.get("/mine")
 @jwt_required()
 @role_required("student")

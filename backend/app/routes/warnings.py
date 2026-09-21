@@ -1,6 +1,5 @@
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
-from sqlalchemy import and_
 
 from ..extensions import db
 from ..models import Exam, ExamRecord, WarningRecord

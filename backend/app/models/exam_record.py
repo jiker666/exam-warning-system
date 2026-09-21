@@ -40,6 +40,7 @@ class ExamRecord(db.Model):
             "analysis_status": self.analysis_status,
             "analysis_note": self.analysis_note,
             "is_mock_analysis": bool(self.is_mock_analysis),
+            "warning_id": self.warnings[0].id if self.warnings else None,
             "risk_score": max([w.risk_score for w in self.warnings], default=0),
             "risk_level": max(
                 (w.risk_level for w in self.warnings),
