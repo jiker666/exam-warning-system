@@ -24,7 +24,7 @@ export default function Layout() {
     <div className="layout">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-logo">AI</div>
+          <div className="brand-logo">✳</div>
           <div>
             <div className="brand-title">考试预警系统</div>
             <div className="brand-sub">基于 AssemblyAI</div>

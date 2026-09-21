@@ -32,12 +32,10 @@ export default function LoginPage() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-logo">
-          <div className="brand-logo">AI</div>
-          <div>
-            <div className="login-title">考试预警系统</div>
-            <div className="login-sub">基于 AssemblyAI 的在线考试风险预警平台</div>
-          </div>
+          <div className="brand-logo">✳</div>
         </div>
+        <h1 className="login-title">考试预警系统</h1>
+        <div className="login-sub">基于 AssemblyAI 的在线考试风险预警平台</div>
 
         {error && <div className="login-error">{error}</div>}
 
