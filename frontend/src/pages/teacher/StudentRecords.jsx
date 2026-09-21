@@ -19,7 +19,9 @@ export default function StudentRecords() {
     const url = filterExam ? `/records?exam_id=${filterExam}` : '/records'
     request({ url }).then(setRecords).catch((e) => setError(e.message))
   }
-  useEffect(load, [filterExam])
+  useEffect(() => {
+    load()
+  }, [filterExam])
 
   return (
     <div>

@@ -38,9 +38,11 @@ export async function request(config) {
   }
 }
 
-/** 通过带 JWT 的请求加载二进制资源（试卷图片 / 录像），返回 blob URL */
+/** 通过带 JWT 的请求加载二进制资源（试卷图片 / 录像），返回 blob URL。
+ *  后端返回的 url 可能自带 /api 前缀，而 client.baseURL 已是 /api，需先剥离避免 /api/api/ */
 export async function fetchBlobUrl(url) {
-  const resp = await client.get(url, { responseType: 'blob' })
+  const path = url.startsWith('/api') ? url.slice(4) : url
+  const resp = await client.get(path, { responseType: 'blob' })
   return URL.createObjectURL(resp.data)
 }
 

@@ -85,6 +85,43 @@ export default function TeacherDashboard() {
           </table>
         </div>
       </div>
+
+      <div className="card">
+        <div className="card-title">安全事件（Honeypot 蜜罐触发）</div>
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>类型</th>
+                <th>关联用户</th>
+                <th>IP</th>
+                <th>详情</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.recent_security_events?.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="muted center">暂无安全事件</td>
+                </tr>
+              )}
+              {data.recent_security_events?.map((e) => (
+                <tr key={e.id}>
+                  <td className="muted">{e.created_at}</td>
+                  <td>
+                    <span className="badge ana-failed">
+                      {e.event_type === 'honeypot_field' ? '蜜罐字段' : '诱捕接口'}
+                    </span>
+                  </td>
+                  <td>{e.username || '匿名'}</td>
+                  <td className="mono">{e.ip || '—'}</td>
+                  <td className="wrap muted">{e.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   )
 }

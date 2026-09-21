@@ -15,7 +15,9 @@ export default function ScoreManagement() {
       r.forEach((x) => (init[x.id] = x.score ?? ''))
       setDrafts(init)
     }).catch((e) => setError(e.message))
-  useEffect(load, [])
+  useEffect(() => {
+    load()
+  }, [])
 
   const save = async (id) => {
     const value = drafts[id]

@@ -138,6 +138,8 @@ if __name__ == "__main__":
         teacher = ensure_user("teacher", "123456", "teacher")
         student01 = ensure_user("student01", "123456", "student")
         student02 = ensure_user("student02", "123456", "student")
+        # student03：不预置考试记录，用于现场演示"进入考试 → 录制 → 提交 → AI 分析"全流程
+        ensure_user("student03", "123456", "student")
         exam = ensure_demo_exam(teacher)
         ensure_demo_records(exam, student01, student02)
         print("== 完成 ==")

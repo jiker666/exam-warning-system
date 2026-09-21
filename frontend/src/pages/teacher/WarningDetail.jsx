@@ -23,7 +23,9 @@ export default function WarningDetail() {
         }
       })
       .catch((e) => setError(e.message))
-  useEffect(load, [warningId])
+  useEffect(() => {
+    load()
+  }, [warningId])
 
   const saveReview = async () => {
     if (!reviewNote.trim()) return setMsg('复核意见不能为空')

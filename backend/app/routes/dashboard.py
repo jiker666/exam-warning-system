@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 
 from ..extensions import db
-from ..models import Exam, ExamRecord, WarningRecord
+from ..models import Exam, ExamRecord, SecurityEvent, WarningRecord
 from ..routes.warnings import _teacher_warnings_query, _warning_summary
 from ..utils.decorators import role_required
 from ..utils.guards import current_user
@@ -54,6 +54,10 @@ def teacher_dashboard():
             "warning_count": len(warning_rows),
             "high_risk_count": len([w for w in warning_rows if w.risk_level == "high"]),
             "recent_warnings": [_warning_summary(w) for w in recent_warnings],
+            "recent_security_events": [
+                e.to_dict()
+                for e in SecurityEvent.query.order_by(SecurityEvent.id.desc()).limit(5).all()
+            ],
         }
     )
 
