@@ -1,0 +1,10 @@
+Flask>=3.0
+Flask-CORS>=5.0
+Flask-JWT-Extended>=4.6
+Flask-SQLAlchemy>=3.1
+python-dotenv>=1.0
+PyMySQL>=1.1
+cryptography>=42.0
+requests>=2.31
+PyMuPDF>=1.24.9
+pytest>=8.0
